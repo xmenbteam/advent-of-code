@@ -11,19 +11,16 @@ let depth = 0;
 let aim = 0;
 
 arrObj.map((dir) => {
-  //   console.log(dir);
   if (dir.direction === "forward") {
     horizontal += dir.distance;
     depth += aim * dir.distance;
   }
 
   if (dir.direction === "down") {
-    // depth += dir.distance;
     aim += dir.distance;
   }
 
   if (dir.direction === "up") {
-    // depth -= dir.distance;
     aim -= dir.distance;
   }
 });
