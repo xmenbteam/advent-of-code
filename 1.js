@@ -7,7 +7,6 @@ const checkIfHiger = (array) => {
     if (array[i] > array[i - 1]) count++;
   }
 
-  console.log(count);
   return count;
 };
 
@@ -23,7 +22,7 @@ const checkThrees = (array) => {
     )
       count++;
   }
-  console.log(count);
+
   return count;
 };
 
