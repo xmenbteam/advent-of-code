@@ -1,0 +1,65 @@
+{
+    "folders": [
+        {
+            "name": "home",
+            "path": "../"
+        },
+        {
+            "name": "2022",
+            "path": "../2022"
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "2021": true,
+            "2022": true,
+        },
+        "jest.disabledWorkspaceFolders": [
+            "rb-tools-ui"
+        ],
+    },
+    "launch": {
+        "version": "0.2.0",
+        "compounds": [],
+        "configurations": [
+            {
+                "type": "node",
+                "name": "vscode-jest-tests.v2-1667468780943",
+                "request": "launch",
+                "console": "integratedTerminal",
+                "internalConsoleOptions": "neverOpen",
+                "cwd": "${workspaceFolder}",
+                "runtimeExecutable": "npm",
+                "args": [
+                    "test",
+                    "--",
+                    "--runInBand",
+                    "--watchAll=false",
+                    "--testNamePattern",
+                    "${jest.testNamePattern}",
+                    "--runTestsByPath",
+                    "${jest.testFile}"
+                ]
+            },
+            {
+                "type": "node",
+                "name": "vscode-jest-tests.v2",
+                "request": "launch",
+                "console": "integratedTerminal",
+                "internalConsoleOptions": "neverOpen",
+                "cwd": "${workspaceFolder}",
+                "runtimeExecutable": "npm",
+                "args": [
+                    "test",
+                    "--",
+                    "--runInBand",
+                    "--watchAll=false",
+                    "--testNamePattern",
+                    "${jest.testNamePattern}",
+                    "--runTestsByPath",
+                    "${jest.testFile}"
+                ]
+            }
+        ]
+    },
+}
