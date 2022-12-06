@@ -1,11 +1,21 @@
 const day6 = (input) => {
-  let count = 0
-
   for (let i = 0; i < input.length; i++) {
-    const array = []
-    array.push(input[i], input[i + 1], input[i + 2], input[i + 3])
-    console.log(array)
+    const slice = input.slice(i, i + 4)
+
+    const isUnique = Array.from(new Set(slice.split(''))).length === 4
+
+    if (isUnique) return i + 4
   }
 }
 
-module.exports = { day6 }
+const day6pt2 = (input) => {
+  for (let i = 0; i < input.length; i++) {
+    const slice = input.slice(i, i + 14)
+
+    const isUnique = Array.from(new Set(slice.split(''))).length === 14
+
+    if (isUnique) return i + 14
+  }
+}
+
+module.exports = { day6, day6pt2 }
