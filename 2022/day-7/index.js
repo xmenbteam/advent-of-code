@@ -90,8 +90,6 @@ const day7pt2 = (data) => {
 
   const sortedData = sortFunc(folderContents)
 
-  console.log({ currentUsedDiscSpace, spaceNeeded, sortedData })
-
   for (let i = 0; i < sortedData.length; i++) {
     const [key, value] = sortedData[i]
     if (value >= spaceToFree) return value

@@ -21,7 +21,6 @@ const day5 = (stack, msgs) => {
 
 const day5pt2 = (stack, msgs) => {
   if (!stack || !msgs) return ''
-  console.log(stack)
 
   let finalString = ''
 
