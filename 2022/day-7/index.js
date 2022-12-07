@@ -94,10 +94,7 @@ const day7pt2 = (data) => {
 
   for (let i = 0; i < sortedData.length; i++) {
     const [key, value] = sortedData[i]
-    if (value >= spaceToFree) {
-      console.log(value)
-      return value
-    }
+    if (value >= spaceToFree) return value
   }
 }
 
