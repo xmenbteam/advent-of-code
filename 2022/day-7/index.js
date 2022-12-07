@@ -27,9 +27,7 @@ const folderContents = {
 
  */
 
-const day7 = (data) => {
-  let total = 0
-
+const createFolderContents = (data) => {
   const cdIntoFolder = /^\$\scd\s[a-z\/]+$/
   const fileSize = /\d+/
   const moveUp = /^\$\scd\s\.{2}$/
@@ -39,9 +37,9 @@ const day7 = (data) => {
   const folderContents = {}
   const foldersIamIn = []
 
-  data.forEach((command) => {
+  data.forEach((command, i) => {
     if (cdIntoFolder.test(command)) {
-      const folder = folderGoingInto(command)
+      const folder = `${folderGoingInto(command)}${i}`
       foldersIamIn.push(folder)
       folderContents[folder] = 0
     }
@@ -55,8 +53,13 @@ const day7 = (data) => {
       foldersIamIn.pop()
     }
   })
+  return folderContents
+}
 
-  console.log({ foldersIamIn, folderContents })
+const day7 = (data) => {
+  let total = 0
+
+  const folderContents = createFolderContents(data)
 
   for (let fileSize in folderContents) {
     const size = folderContents[fileSize]
@@ -66,4 +69,36 @@ const day7 = (data) => {
   return total
 }
 
-module.exports = { day7 }
+const sortFunc = (object) => {
+  return Object.entries(object).sort(([keya, valuea], [keyb, valueb]) => {
+    if (valuea < valueb) return -1
+    if (valuea > valueb) return 1
+    return 0
+  })
+}
+
+const day7pt2 = (data) => {
+  const folderContents = createFolderContents(data)
+
+  const totalDiscSpace = 70_000_000
+  const spaceNeeded = 30_000_000
+
+  const currentUsedDiscSpace = folderContents['/0']
+
+  const totalUnusedSpace = totalDiscSpace - currentUsedDiscSpace
+  const spaceToFree = spaceNeeded - totalUnusedSpace
+
+  const sortedData = sortFunc(folderContents)
+
+  console.log({ currentUsedDiscSpace, spaceNeeded, sortedData })
+
+  for (let i = 0; i < sortedData.length; i++) {
+    const [key, value] = sortedData[i]
+    if (value >= spaceToFree) {
+      console.log(value)
+      return value
+    }
+  }
+}
+
+module.exports = { day7, sortFunc, day7pt2 }
