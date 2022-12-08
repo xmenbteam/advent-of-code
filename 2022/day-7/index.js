@@ -63,7 +63,7 @@ const day7 = (data) => {
 
   for (let fileSize in folderContents) {
     const size = folderContents[fileSize]
-    if (size <= 100000) total += size
+    if (size <= 100_000) total += size
   }
 
   return total
