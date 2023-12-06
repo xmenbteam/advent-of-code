@@ -1,3 +1,21 @@
+const infoGetter = string => {
+  const id = +string.match(/\d+/g)[0]
+  const handfuls = string
+    .split(':')[1]
+    .split(';')
+    .map(str => str.replace(' ', '').split(','))
+
+  return { id, handfuls }
+}
+const bitsGetter = cube => {
+  const bits = cube.trim().split(' ')
+
+  const number = +bits[0]
+  const colour = bits[1]
+
+  return { number, colour }
+}
+
 exports.day2 = (data) => {
   const possibeNumbers = {
     red: 12,
@@ -8,19 +26,12 @@ exports.day2 = (data) => {
   return data.reduce((total, string) => {
     let isPossible = true
 
-    const id = +string.match(/\d+/g)[0]
-    const handfuls = string
-      .split(':')[1]
-      .split(';')
-      .map(str => str.replace(' ', '').split(','))
+    const { id, handfuls } = infoGetter(string)
 
     handfuls.forEach(handful => {
       handful.forEach(cube => {
+        const { number, colour } = bitsGetter(cube)
 
-        const bits = cube.trim().split(' ')
-
-        const number = +bits[0]
-        const colour = bits[1]
         if (possibeNumbers[colour] < number) isPossible = false
       })
     })
@@ -36,18 +47,12 @@ exports.day2pt2 = (data) => {
       green: 0
     }
 
-    const handfuls = string
-      .split(':')[1]
-      .split(';')
-      .map(str => str.replace(' ', '').split(','))
+    const { handfuls } = infoGetter(string)
 
     handfuls.forEach(handful => {
       handful.forEach(cube => {
+        const { number, colour } = bitsGetter(cube)
 
-        const bits = cube.trim().split(' ')
-
-        const number = +bits[0]
-        const colour = bits[1]
         if (number > colours[colour]) colours[colour] = number
       })
     })
