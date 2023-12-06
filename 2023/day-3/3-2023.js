@@ -1,6 +1,6 @@
 const getSymbolsAndCoordinates = data => data.reduce((symbols, row, y) => {
   row.split('').forEach((character, x) => {
-    if (character !== '.' && !/\d/.test(character)) {
+    if (!/\d|\./.test(character)) {
       symbols.push({
         symbol: character, symbolX: x, symbolY: y
       })
