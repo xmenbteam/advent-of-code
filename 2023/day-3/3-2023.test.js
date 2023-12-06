@@ -1,4 +1,4 @@
-const { day3 } = require("./3-2023")
+const { day3, day3pt2 } = require("./3-2023")
 const { data } = require('./3-data')
 
 describe('day 3', () => {
@@ -67,6 +67,29 @@ describe('day 3', () => {
   it('full data', () => {
     const expected = 556057
     const actual = day3(data)
+    expect(actual).toBe(expected)
+  })
+})
+
+describe('day 3 pt 2', () => {
+  it('next to each other x', () => {
+    const input = [
+      '467*35...',
+      '..........',
+      '..35..633.',
+    ]
+    const expected = 16345
+    const actual = day3pt2(input)
+    expect(actual).toBe(expected)
+  })
+  it('next to each other y', () => {
+    const input = [
+      '4',
+      '*',
+      '3',
+    ]
+    const expected = 12
+    const actual = day3pt2(input)
     expect(actual).toBe(expected)
   })
 })
