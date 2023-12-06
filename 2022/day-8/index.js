@@ -7,11 +7,36 @@ Is the number the biggest IN TOTAL
 
  */
 
+const rowOfTreesVisible = (currentTreeHeight, trees, i) => {
+  const leftTrees = trees.slice(0, i)
+  const rightTrees = trees.slice(i + 1)
+
+  let isVisible = false
+  const leftTreeMax = Math.max(...leftTrees)
+  const righTreeMax = Math.max(...rightTrees)
+
+  if (currentTreeHeight > leftTreeMax || currentTreeHeight > righTreeMax)
+    isVisible = true
+
+  leftTrees.push(rightTrees.shift())
+
+  return isVisible
+}
+
+const columnOfTreesFromRow = (currentTreeHeight, trees, index) => {
+  const treeColumn = trees.reduce((output, treeString, i, array) => {
+    if (i === 0 || i === array.length - 1) return output
+    else output.push(+treeString[index])
+    return output
+  }, [])
+
+  return rowOfTreesVisible(currentTreeHeight, treeColumn, index)
+}
+
 const day8 = (input) => {
   return input.reduce((sum, row, i, arr) => {
     const trees = row.split('')
-    const leftTrees = []
-    const rightTrees = trees.map((tree) => +tree)
+
     const length = arr.length
     if (i === 0) {
       return sum + length
@@ -20,26 +45,21 @@ const day8 = (input) => {
       return sum + length
     }
 
-    rightTrees.forEach((currentTreeHeight, i, treeArr) => {
-      if (i === 0) sum++
-      else if (i === treeArr.length - 1) sum++
-      else {
-        let isVisible = false
-        const leftTreeMax = Math.max(leftTrees)
-        const righTreeMax = Math.max(rightTrees)
-
-        if (currentTreeHeight > leftTreeMax || currentTreeHeight > righTreeMax)
-          isVisible = true
-
-        console.log(isVisible)
-
-        leftTrees.push(rightTrees.shift())
-        console.log({ currentTreeHeight, leftTrees, rightTrees })
-        if (isVisible) sum++
+    trees.forEach((currentTreeHeight, i, treeArr) => {
+      if (i === 0 || i === treeArr.length - 1) {
+        sum++
+      } else {
+        const isVisibleRow = rowOfTreesVisible(currentTreeHeight, trees, i)
+        const isVisibleColumn = columnOfTreesFromRow(
+          currentTreeHeight,
+          input,
+          i
+        )
+        if (isVisibleRow || isVisibleColumn) sum++
       }
     })
     return sum
   }, 0)
 }
 
-module.exports = { day8 }
+module.exports = { day8, columnOfTreesFromRow }
