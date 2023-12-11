@@ -62,7 +62,7 @@ exports.day3pt2 = (data) => {
     symbolsAndCoordinates.forEach((symbolInfo) => {
       const { symbolX, symbolY } = symbolInfo
 
-      const isAdjacentY = Math.abs(numberY - symbolY) === 2
+      const isAdjacentY = Math.abs(numberY - symbolY) === 1
       const isAdjacentX = symbolX - endsAtX === 1 || startsAtX - symbolX === 1
 
       if (isAdjacentX && !foundNumber) {
@@ -76,17 +76,28 @@ exports.day3pt2 = (data) => {
         return
       }
 
-      // if (
-      //   isAdjacentY && startsAtX === symbolX && !foundNumber) {
-      //   total = +number
-      //   foundNumber = number
-      //   return
-      // }
-      // if (isAdjacentY && foundNumber) {
-      //   total = total * number
-      //   foundNumber = undefined
-      //   return
-      // }
+      if (
+        isAdjacentY
+        && (startsAtX === symbolX ||
+          (startsAtX < symbolX && endsAtX > symbolX)
+        )
+        && !foundNumber
+      ) {
+        total = +number
+        foundNumber = number
+        return
+      }
+      if (
+        isAdjacentY
+        && (startsAtX === symbolX ||
+          (startsAtX < symbolX && endsAtX > symbolX)
+        )
+        && foundNumber
+      ) {
+        total = total * number
+        foundNumber = undefined
+        return
+      }
     })
   })
 
